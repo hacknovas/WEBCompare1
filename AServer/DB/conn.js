@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-
-mongoose.connect("mongodb://127.0.0.1:27017/products", () => {
+mongoose.connect("mongodb+srv://mahi:mahi2002@cluster0.u1xljya.mongodb.net/wbcompare?retryWrites=true&w=majority", () => {
     console.log("connected");
 });

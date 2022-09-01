@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-//always send data like string to server
+import Spinner1 from '../Spinners/Spinner1';
+import '../cssElem/admincss.css';
 
 export default function Admin() {
-
     const navigate = useNavigate();
 
     const [name, setname] = useState("None");
@@ -25,9 +25,8 @@ export default function Admin() {
             });
 
             const results = await result.json();
-            // console.log(results);
 
-            if (!results.status === 200) {
+            if (result.status == 400) {
                 const err = new Error("Error Occuered");
                 throw err;
             } else {
@@ -37,12 +36,17 @@ export default function Admin() {
             }
         } catch (err) {
             console.log(err);
-            navigate("/login");
+            alert("Your Not logged as Admin....");
+            navigate("/home");
         }
     }
 
     const insertions = async (e) => {
         e.preventDefault();
+
+        document.querySelector(".dspl1").style.display = "block";
+        document.querySelector(".dspl2").style.display = "none";
+
         const results = await fetch("/insertdatas", {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
@@ -50,44 +54,70 @@ export default function Admin() {
                 Name: e.target["PName"].value,
                 FLink: e.target["FLink"].value,
                 ALink: e.target["ALink"].value,
-                CLink:e.target["CLink"].value
+                CLink: e.target["CLink"].value
             })
         })
 
+
         if (results.status === 200) {
-            alert("Submites");
+            alert("Data Successfully Submited.....");
+            test();
         } else {
             alert("Not Submited");
         }
     }
+
+    function test() {
+        document.querySelector(".dspl1").style.display = "none";
+        document.querySelector(".dspl2").style.display = "block";
+    }
+
+
     return (
         <>
-            <div className="row">
-                <div className="col-6" onSubmit={insertions}>
-                    <form className='row'>
-                        <div className="col-4">
-                            <label htmlFor="exampleInputEmail1" className="form-label"><b> Product Name</b></label>
-                            <input type="text" className="form-control" id="exampleInputEmail1" name='PName' required/>
-                        </div>
-                        <div className=" col-4">
-                            <label htmlFor="exampleInputPassword1" className="form-label"><b>Product Links</b></label>
-                            <br /><span className="badge bg-secondary">Amazon</span> <input type="text" className="form-control" id="exampleInputPassword1" name='ALink' required/>
-                            <span className="badge bg-secondary">Flipkart</span> <input type="text" className="form-control" id="exampleInputPassword1" name='FLink' required/>
-                            <span className="badge bg-secondary">Croma</span> <input type="text" className="form-control" id="exampleInputPassword1" name='CLink' required/>
-                        </div>
-                        <div className='col-4'>
-                            <button type="submit" className="btn btn-primary">Submit</button>
-                        </div>
-                    </form>
+            <div className='row'>
+                <div className='col-6 dspl2'>
+                    <div className="containerns ">
+                        <form className="formm" onSubmit={insertions}>
+                            <div className="form__text">
+                                Product Details
+                            </div>
+                            <div className="form__group">
+                                <input type="text" name='PName' className="form__input" placeholder="Product name" id="Product name" required />
+                                <label for="Product name" className="form__label">Product name</label>
+                            </div>
+                            <label for="Product Links" className="form__label">Product Links</label>
+                            <div className="form__group">
+                                <input type="url" className="form__input" placeholder="Amazon Link" id="Amazon" name='ALink' required />
+                                <label for="Amazon" className="form__label">Amazon</label>
+                            </div>
+
+                            <div className="form__group">
+                                <input type="url" className="form__input" placeholder="Flipkart link" id="Flipkart" required name='FLink' />
+                                <label for="Flipkart" className="form__label">Flipkart</label>
+                            </div>
+
+                            <div className="form__group">
+                                <input type="url" className="form__input" placeholder="Croma Link" id="Meesho" name='CLink'  />
+                                <label for="Meesho" className="form__label">Croma</label>
+                            </div>
+                            <div className="btn btn-primary ">
+                                <input type="submit" value="Submit" style={{ textDecoration: "none" }} />
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div className="col-6">
-                    <div className="card" style={{ width: "18rem" }}>
-                        <img src="" className="card-img-top" alt="" />
-                        <div className="card-body">
-                            <h5 className="card-title">{name}</h5>
-                            <p className="card-text">Email: {email}</p>
-                            <a href="#" className="btn btn-primary">Go somewhere</a>
-                        </div>
+
+                <div className="col-6 dspl1">
+                    <Spinner1 />
+                </div>
+
+                <div className="col-2"></div>
+                <div className="card col-3 m-5 pt-5" style={{ width: "19rem" }}>
+                    <img src="https://icon-library.com/images/coding-icon-png/coding-icon-png-11.jpg" className="card-img-top" alt="..." />
+                    <br /><div className="card-body">
+                        Admin Name:<h5 className="card-title">{name}</h5>
+                        Admin E-Mail:<h5 className="card-title"> {email}</h5>
                     </div>
                 </div>
             </div>

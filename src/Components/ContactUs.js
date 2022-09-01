@@ -1,12 +1,15 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import '../cssElem/contact.css';
 
 export default function ContactUs() {
 
     const [userData, setuserData] = useState({ name: "", email: "", message: "" });
 
     useEffect(() => {
-        getContactPage();
+        return () => {
+            getContactPage();
+        }
     }, []);
 
     const getContactPage = async () => {
@@ -31,17 +34,8 @@ export default function ContactUs() {
         }
     }
 
-    const handleInput = (e) => {
-        const name = e.target.name;
-        const value = e.target.value;
-
-        setuserData({ ...userData, [name]: value });
-    }
-
     const sendDataBE = async (e) => {
         e.preventDefault();
-
-        const { name, email, message } = userData;
 
         const result = await fetch("/chkcontact", {
             method: "POST",
@@ -49,7 +43,7 @@ export default function ContactUs() {
                 'Content-Type': "application/json"
             },
             body: JSON.stringify({
-                name, email, message
+                PName: e.target["PName"].value, Message: e.target["Message"].value
             })
         });
 
@@ -65,64 +59,43 @@ export default function ContactUs() {
 
     return (
         <>
-            <section className="mb-4">
+            <div id="aldtr" >
 
-                <h2 className="h1-responsive font-weight-bold text-center my-4">Contact us</h2>
-                <p className="text-center w-responsive mx-auto mb-5">Do you have any questions? Please do not hesitate to contact us directly. Our team will come back to you within
-                    a matter of hours to help you.
-                </p>
-
-                <div className="row" onSubmit={sendDataBE}>
-                    <div className="col-md-9 mb-md-0 mb-5">
-                        <form id="contact-form" name="contact-form" >
-                            <div className="row">
-                                <div className="col-md-6">
-                                    <div className="md-form mb-0">
-                                        <input type="text" id="name" name="name" className="form-control" value={userData.name} />
-                                        <label htmlFor="name" className="" >Your name</label>
-                                    </div>
-                                </div>
-
-                                <div className="col-md-6">
-                                    <div className="md-form mb-0">
-                                        <input type="text" id="email" name="email" className="form-control" value={userData.email} />
-                                        <label htmlFor="email" className="">Your email</label>
-                                    </div>
-                                </div>
+                <div className="cntr" >
+                    <div className="content">
+                        <div className="left-side">
+                            <h3><div className="badge " style={{ color: "#3e2093" }}>Send Message <br /> As</div></h3>
+                            <div className="phone details">
+                                <div className="topic">Name</div>
+                                {userData.name}
                             </div>
+                            <div className="email details">
+                                <div className="topic">Email</div>
+                                <a mailto="creatives.doni@gmail.com" style={{ textDecoration: "none", color: "black" }}> {userData.email} </a>
+                            </div>
+                        </div>
 
-                            <div className="row">
-                                <div className="col-md-12">
-                                    <div className="md-form mb-0">
-                                        <input type="text" id="subject" name="message" className="form-control" onChange={handleInput} value={userData.message} />
-                                        <label htmlFor="subject" className="">Subject</label>
-                                    </div>
+                        <div className="right-side">
+                            <b>
+                                <div className="topic-text text-center"> Request For Product</div>
+                            </b>
+                            <hr />
+                            <div className="topic-text text-center">Send Us a Message</div>
+
+                            <form onSubmit={sendDataBE}>
+                                <div className="input-box">
+                                    <input type="text" placeholder="Enter Product Name" required="required" name='PName' />
                                 </div>
-                            </div>
-                            <div className="text-center text-md-left">
-                                <input className="btn btn-primary" value="Submit" type='submit' />
-                            </div>
-                        </form>
-
-                    </div>
-                    <div className="col-md-3 text-center">
-                        <ul className="list-unstyled mb-0">
-                            <li><i className="fas fa-map-marker-alt fa-2x"></i>
-                                <p>San Francisco, CA 94126, USA</p>
-                            </li>
-
-                            <li><i className="fas fa-phone mt-4 fa-2x"></i>
-                                <p>+ 01 234 567 89</p>
-                            </li>
-
-                            <li><i className="fas fa-envelope mt-4 fa-2x"></i>
-                                <p>contact@mdbootstrap.com</p>
-                            </li>
-                        </ul>
+                                <div className="input-box">
+                                    <input type="text" placeholder="Type your Message" name='Message' />
+                                </div>
+                                <input type="submit" value="Send" className='btn btn-sm btn-dark' />
+                            </form>
+                        </div>
                     </div>
                 </div>
+            </div>
 
-            </section>
         </>
     )
 }

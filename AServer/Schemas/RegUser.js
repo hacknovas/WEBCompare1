@@ -24,11 +24,7 @@ const userSchema = new mongoose.Schema({
     },
     Message: [
         {
-            Name: {
-                type: String,
-                required: true
-            },
-            Email: {
+            PName: {
                 type: String,
                 required: true
             },
@@ -38,6 +34,10 @@ const userSchema = new mongoose.Schema({
             }
         }
     ],
+    Admin: {
+        type: Boolean,
+        default: false
+    },
     tokens: [
         {
             token: {
@@ -60,9 +60,9 @@ userSchema.method("generateAuthToken", async function () {
 });
 
 
-userSchema.method("addMessage", async function (name, email, message) {
+userSchema.method("addMessage", async function (name, message) {
     try {
-        this.Message = this.Message.concat({ Name: name, Email: email, Mess: message });
+        this.Message = this.Message.concat({ PName: name, Mess: message });
         await this.save();
         return this.Message;
     } catch (error) {
@@ -70,17 +70,6 @@ userSchema.method("addMessage", async function (name, email, message) {
     }
 });
 
-
-// userSchema.methods.generateAuthToken = async function () {
-//     try {
-//         let token = jwt.sign({ _id: this._id }, process.env.SECRET_KEY);
-//         this.tokens = this.tokens.concat({ token: token });
-//         await this.save();
-//         return token;
-//     } catch (err) {
-//         console.log("Not Geneter token");
-//     }
-// }
 
 const rgu = new mongoose.model("RegisterdUser", userSchema);
 

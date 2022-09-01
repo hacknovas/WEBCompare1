@@ -6,17 +6,11 @@ const app = express();
 const coll = require("./Schemas/DetailOfProd");
 const rgu = require("./Schemas/RegUser");
 const authentication = require("./middleware/Athenticate");
-const scrapData = require('./Scrapping/ftch');
 const PORT = process.env.PORT || 8000;
 
 app.use(express.json());
 app.use(cookieParser());
 
-app.get('/', (req, res) => {
-    res.writeHead(200, { 'content-type': "html" });
-    res.write("MSdian");
-    res.end();
-});
 
 let token;
 
@@ -45,19 +39,26 @@ app.post('/chklogin', async (req, res) => {
 });
 
 app.post('/registerUser', async (req, res) => {
-    let { Name, Email, Pass, RPass } = req.body;
-    let demo = {
-        Name: Name, Email: Email, Pass: Pass, RPass: RPass
-    }
+    try {
 
-    const data = new rgu(demo);
-    const reslts = await data.save();
+        let { Name, Email, Pass, RPass } = req.body;
+        let demo = {
+            Name: Name, Email: Email, Pass: Pass, RPass: RPass
+        }
+
+        const data = new rgu(demo);
+        const results = await data.save();
+
+        res.sendStatus(200);
+    } catch (error) {
+        res.sendStatus(400);
+    }
 });
 
 
 app.post('/insertdatas', async (req, res) => {
     let demo = {
-        Product_Name: req.body["Name"],
+        Product_Name: req.body["Name"].toUpperCase(),
         Links: { Flipkart: req.body["FLink"], Amazon: req.body["ALink"], Croma: req.body["CLink"] }
     }
     const dm = new coll(demo);
@@ -65,14 +66,18 @@ app.post('/insertdatas', async (req, res) => {
 
     const fn = await coll.findOne({ _id: results._id });
     const result = await fn.getDetailFrom();
-    // console.log(result);
 
     res.status(200).send({ mes: "Submited" });
 });
 
 
 app.get("/chkadmin", authentication, (req, res) => {
-    res.send(req.rootUser);
+    console.log(req.rootUser.Admin)
+    if (req.rootUser.Admin == true) {
+        res.send(req.rootUser);
+    } else {
+        res.sendStatus(400);
+    }
 });
 
 app.get("/getdata", authentication, (req, res) => {
@@ -81,17 +86,16 @@ app.get("/getdata", authentication, (req, res) => {
 
 app.post("/chkcontact", authentication, async (req, res) => {
     try {
-        const { name, email, message } = req.body;
+        const { PName, Message } = req.body;
 
-        if (!name || !email || !message) {
+        if (!PName || !Message) {
             console.log("ERRRoR");
             return res.json({ error: "PLZ FIll Correct INFO Empty Field" });
         }
-
         const userD = await rgu.findOne({ _id: req.rootUser._id });
 
         if (userD) {
-            const userMessage = await userD.addMessage(name, email, message);
+            const userMessage = await userD.addMessage(PName, Message);
 
             await userD.save();
             res.status(201).json({ message: "user constact mesaage added successfuly" });
@@ -108,17 +112,31 @@ app.get('/logout', async (req, res) => {
 });
 
 app.get("/getAllData", async (req, res) => {
-    const data = await coll.find();
+    const data = await coll.find().limit(10);
     res.status(200).send(data);
 });
 
-app.post("/updatePoducts", async (req, res) => {
+app.post("/getSingleData", async (req, res) => {
     const data = await coll.findOne({ _id: req.body.id });
 
-    if (req.body.Prices.AmazonP != data.Prices.AmazonP || req.body.Prices.FlipkartP != data.Prices.FlipkartP) {
-        console.log("Done");
+    if (data.Prices.AmazonP != req.body.Prices.AmazonP || data.Prices.FlipkartP != req.body.Prices.FlipkartP) {
         const result = await data.getDetailFrom();
+        console.log("Updated");
     }
+
+    res.status(200).send(data);
+});
+
+app.post("/searchProd", async (req, res) => {
+    try {
+        const data = await coll.find({ Product_Name: req.body.Name.toUpperCase() });
+
+        res.status(200).send(data);
+
+    } catch (err) {
+        res.status(400).send({ message: "Not Found" });
+    }
+
 
 });
 

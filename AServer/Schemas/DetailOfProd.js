@@ -45,6 +45,20 @@ const struct = new mongoose.Schema({
         AmazonP: {
             type: String
         }
+    },
+    Category: {
+        Mobile: {
+            type: Boolean,
+            default: false
+        },
+        Electronics: {
+            type: Boolean,
+            default: false
+        },
+        Fashion: {
+            type: Boolean,
+            default: false
+        }
     }
 });
 

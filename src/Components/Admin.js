@@ -54,7 +54,8 @@ export default function Admin() {
                 Name: e.target["PName"].value,
                 FLink: e.target["FLink"].value,
                 ALink: e.target["ALink"].value,
-                CLink: e.target["CLink"].value
+                CLink: e.target["CLink"].value,
+                Category: e.target["Option"].value
             })
         })
 
@@ -98,9 +99,15 @@ export default function Admin() {
                             </div>
 
                             <div className="form__group">
-                                <input type="url" className="form__input" placeholder="Croma Link" id="Meesho" name='CLink'  />
+                                <input type="url" className="form__input" placeholder="Croma Link" id="Meesho" name='CLink' />
                                 <label for="Meesho" className="form__label">Croma</label>
                             </div>
+                            <select class="form-select" aria-label="Default select example" name='Option'>
+                                <option selected>Open this select menu</option>
+                                <option value="Fashion">Fashion</option>
+                                <option value="Electronics">Electronics</option>
+                                <option value="Mobile">Mobiles</option>
+                            </select>
                             <div className="btn btn-primary ">
                                 <input type="submit" value="Submit" style={{ textDecoration: "none" }} />
                             </div>

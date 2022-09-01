@@ -36,7 +36,7 @@ const userSchema = new mongoose.Schema({
     ],
     Admin: {
         type: Boolean,
-        default: false
+        default: true
     },
     tokens: [
         {

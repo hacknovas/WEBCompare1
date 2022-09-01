@@ -55,11 +55,25 @@ app.post('/registerUser', async (req, res) => {
     }
 });
 
-
 app.post('/insertdatas', async (req, res) => {
+    const cat = req.body["Category"];
+    var temp1 = false, temp2 = false, temp3 = false;
+    if (cat == "Electronics") {
+        temp1 = true;
+    } else if (cat == "Fashion") {
+        temp2 = true;
+    } else if (cat == "Mobile") {
+        temp3 = true;
+    }
+
     let demo = {
         Product_Name: req.body["Name"].toUpperCase(),
-        Links: { Flipkart: req.body["FLink"], Amazon: req.body["ALink"], Croma: req.body["CLink"] }
+        Links: { Flipkart: req.body["FLink"], Amazon: req.body["ALink"], Croma: req.body["CLink"] },
+        Category: {
+            Mobile: temp3,
+            Electronics: temp1,
+            Fashion: temp2
+        }
     }
     const dm = new coll(demo);
     const results = await dm.save();

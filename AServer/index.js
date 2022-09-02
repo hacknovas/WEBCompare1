@@ -126,7 +126,7 @@ app.get('/logout', async (req, res) => {
 });
 
 app.get("/getAllData", async (req, res) => {
-    const data = await coll.find().limit(10);
+    const data = await coll.find();
     res.status(200).send(data);
 });
 

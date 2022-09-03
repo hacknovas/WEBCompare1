@@ -10,7 +10,9 @@ export default function Admin() {
     const [email, setemail] = useState("None");
 
     useEffect(() => {
-        getAdminPage();
+        return () => {
+            getAdminPage();
+        }
     }, []);
 
     const getAdminPage = async () => {
@@ -37,7 +39,7 @@ export default function Admin() {
         } catch (err) {
             console.log(err);
             alert("Your Not logged as Admin....");
-            navigate("/home");
+            navigate("/");
         }
     }
 

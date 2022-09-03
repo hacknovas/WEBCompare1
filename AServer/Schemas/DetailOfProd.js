@@ -21,29 +21,36 @@ const struct = new mongoose.Schema({
     Prices:
     {
         AmazonP: {
-            type: String
+            type: String,
+            default:"Not Available"
         },
         FlipkartP: {
-            type: String
+            type: String,
+            default:"Not Available"
         },
         CromaP: {
-            type: String
+            type: String,
+            default:"Not Available"
         }
     },
     Ratings: {
         AmazonP: {
-            type: String
+            type: String,
+            default:"Not Available"
         },
         FlipkartP: {
-            type: String
+            type: String,
+            default:"Not Available"
         },
         CromaP: {
-            type: String
+            type: String,
+            default:"Not Available"
         }
     },
     Images: {
         AmazonP: {
-            type: String
+            type: String,
+            default:"Not Available"
         }
     },
     Category: {

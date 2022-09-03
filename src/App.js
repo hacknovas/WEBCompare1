@@ -22,7 +22,7 @@ function App() {
           <Route path="/contactus" element={<ContactUs />} />
           <Route path="/pdetails" element={<ProductDetails />} />
         </Routes>
-        <Footer />
+        {/* <Footer /> */}
       </BrowserRouter>
     </>
   );

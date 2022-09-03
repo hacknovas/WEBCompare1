@@ -67,6 +67,9 @@ export default function Navbar() {
                                 <strong><Link to='/contactus' style={{ textDecorationLine: "none" }} className="text-dark">Contact Us</Link></strong>
                             </li>
                             <li className='mx-2 btn'>
+                                <strong><Link className=" text-dark" style={{ textDecorationLine: "none" }} to="/product"> Products</Link></strong>
+                            </li>
+                            <li className='mx-2 btn'>
                                 <strong><a onClick={logout} className=" text-dark" style={{ textDecorationLine: "none" }}> Log Out </a></strong>
                             </li>
                         </ul>

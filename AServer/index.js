@@ -126,7 +126,7 @@ app.get('/logout', async (req, res) => {
 });
 
 app.get("/getAllData", async (req, res) => {
-    const data = await coll.find();
+    const data = await coll.find().limit(30);
     res.status(200).send(data);
 });
 
@@ -139,6 +139,28 @@ app.post("/getSingleData", async (req, res) => {
     }
 
     res.status(200).send(data);
+});
+
+app.post("/getSeperateData", async (req, res) => {
+    let f1 = false, f2 = false, f3 = false;
+    if (req.body["name"] == "Fashion") {
+        f3 = true;
+    } else if (req.body["name"] == "Electronics") {
+        f2 = true
+    } else if (req.body["name"] == "Mobile") {
+        f1 = true;
+    }
+
+    const data = await coll.find({
+        Category: {
+            Mobile: f1,
+            Electronics: f2,
+            Fashion: f3
+        }
+    });
+
+    res.status(200).send(data);
+
 });
 
 app.post("/searchProd", async (req, res) => {

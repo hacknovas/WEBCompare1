@@ -29,8 +29,8 @@ export default function FeedBack() {
     }
     return (
         <>
-            <div className='fdb'>
-                <div class="containerss cntr"style={{width:"100%"}}>
+            <div className='fdb' >
+                <div class="containerss cntr" style={{ width: "70%" ,backgroundColor:"#c8e8e9"}}>
                     <div className="badge text-dark">
                         <h3>FeedBack</h3>
                         <hr />
@@ -55,14 +55,14 @@ export default function FeedBack() {
                             </div>
 
                             <div class="textarea1">
-                                <textarea cols="20" name='Name' placeholder="Enter Your Name.." style={{height:"50px"}} required></textarea>
+                                <textarea cols="20" name='Name' placeholder="Enter Your Name.." style={{ height: "50px" }} required></textarea>
                             </div>
                             <div class="textarea1">
                                 <textarea cols="30" name='mes' placeholder="Describe your experience.." required></textarea>
                             </div>
 
-                            <div class="btn1 btn btn-outline-secondary">
-                                <button type="submit" class="bttn text-dark">Post</button>
+                            <div class="btn1 btn btn-outline-secondary bg-dark">
+                                <b><button type="submit" class="bttn text-light">Submit</button></b>
                             </div>
                         </form>
                     </div>

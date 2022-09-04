@@ -1,10 +1,36 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 export default function Navbar() {
     const navigate = useNavigate();
+    const [Name, setName] = useState("...");
+
+
+    const getData = async () => {
+        try {
+            const result = await fetch('/getdata', {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            const results = await result.json();
+
+            if (!results.status === 200) {
+                const err = new Error("Error Occuered");
+                throw err;
+            } else {
+                setName(results.Name);
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    }
 
     const logout = async () => {
+        setName("...");
         fetch('/logout', {
             method: "GET",
             headers: {
@@ -50,34 +76,51 @@ export default function Navbar() {
 
     return (
         <>
-            <nav className="navbar navbar-expand-lg bg-light" id='hde'>
-                <div className="container-fluid">
-                    <div>
-                        <strong><Link to="/home" style={{ textDecorationLine: "none" }} className="text-secondary">WebCompare </Link></strong>
-                    </div>
-                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
-                            <li className='mx-2 btn'>
-                                <b><Link to='/admin' style={{ textDecorationLine: "none" }} className="text-dark">Admin</Link></b>
-                            </li>
-                            <li className='mx-2 btn'>
-                                <strong><Link to='/' style={{ textDecorationLine: "none" }} className="text-dark">Login</Link></strong>
-                            </li>
-                            <li className='mx-2 btn'>
-                                <strong><Link to='/contactus' style={{ textDecorationLine: "none" }} className="text-dark">Contact Us</Link></strong>
-                            </li>
-                            <li className='mx-2 btn'>
-                                <strong><Link className=" text-dark" style={{ textDecorationLine: "none" }} to="/product"> Products</Link></strong>
-                            </li>
-                            <li className='mx-2 btn'>
-                                <strong><a onClick={logout} className=" text-dark" style={{ textDecorationLine: "none" }}> Log Out </a></strong>
-                            </li>
-                        </ul>
-                        <form className="d-flex" role="search" onSubmit={searchProd}>
-                            <input className="form-control me-2" type="search" placeholder="Search Product" aria-label="Search" name='Name' />
-                            <button className="btn btn btn-outline-success" type="submit">Go</button>
-                        </form>
-                    </div>
+            <nav class="navbar sticky-top row shadow rounded" style={{ backgroundColor: "#f0f0ff" }}>
+                <div className='col-1'>
+                    <b><Link to="/home" style={{ textDecorationLine: "none" }} className="btn-sm text-secondary"> &nbsp;&nbsp;&nbsp;WebCompare</Link></b>
+                </div>
+                <div className="col-5">
+                    <ul className=" me-auto mb-2">
+                        <li className='mx-2 btn'>
+                            <strong><Link className=" text-dark" style={{ textDecorationLine: "none" }} to="/home"> Home</Link></strong>
+                        </li>
+                        <li className='mx-2 btn'>
+                            <strong><Link className=" text-dark" style={{ textDecorationLine: "none" }} to="/product"> Products</Link></strong>
+                        </li>
+                        <li className='mx-2 btn'>
+                            <strong><Link to='/contactus' style={{ textDecorationLine: "none" }} className="text-dark">Contact Us</Link></strong>
+                        </li>
+                    </ul>
+                </div>
+
+                <div className="col-4">
+                    <form className="d-flex" role="search" onSubmit={searchProd}>
+                        <input className="form-control me-2" type="search" placeholder="Search Product" aria-label="Search" name='Name' />
+                        <div className="btn btn-outline-secondary" type="submit">Go</div>
+                    </form>
+                </div>
+
+                <div className="col-2" onClick={getData}>
+                    <ul style={{ listStyle: "none" }}>
+                        <li class="dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="../../images/1234.png" width="40" height="40" class="rounded-circle" />
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <div class="dropdown-item text-center" >{Name}</div>
+                                <div class="dropdown-item" >
+                                    <Link to='/' style={{ textDecorationLine: "none" }} className="text-dark">Login</Link>
+                                </div>
+                                <div className="dropdown-item">
+                                    <Link to='/admin' style={{ textDecorationLine: "none" }} className="text-dark">Admin</Link>
+                                </div>
+                                <div className='dropdown-item'>
+                                    <div onClick={logout} > Log Out </div>
+                                </div >
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </nav>
         </>

@@ -1,39 +1,44 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import "../cssElem/home.css";
 
+
 export default function Home() {
+
+    const [feedbacks, setfeedbacks] = useState([{ Name: "", rate: "", message: "" }, { Name: "", rate: "", message: "" }, { Name: "", rate: "", message: "" }]);
+
+    const getfeed = async () => {
+        console.log("he");
+        const res = await fetch("/getFedd", {
+            method: "GET"
+        });
+
+        const result = await res.json();
+        setfeedbacks(result);
+    }
+
+    useEffect(() => {
+        return () => {
+            getfeed();
+        }
+    }, []);
+
     return (
         <>
-            <div id="carouselExampleDark" className="carousel carousel-dark slide px-3 mt-2" data-bs-ride="carousel">
-                <div className="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                </div>
-                <div className="carousel-inner">
-                    <div className="carousel-item  active" data-bs-interval="2000">
-                        <img src="../../images/2.jpg" style={{ height: "500px" }} className="d-block w-100" alt="..." />
-                        <div className="carousel-caption d-none d-md-block">
-                            <h5>WELCOME   TO   SMARTCOMPARE</h5>
-                            <p>Compare The Product From All The Sites At One Place Only</p>
-                        </div>
-                    </div>
-                    <div className="carousel-item" data-bs-interval="10000">
-                        <img src="../../images/1.jpg" style={{ height: "500px" }} className="d-block w-100" alt="..." />
-                        <div className="carousel-caption d-none d-md-block">
-                            <h5>WELCOME   TO   SMARTCOMPARE</h5>
-                            <p>Compare The Product From All The Sites At One Place Only</p>
+
+            <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img class="d-block w-100" src="../../images/2.jpg" alt="First slide" style={{ height: "500px" }} />
+
+                        <div className="carousel-caption d-none d-md-block text-secondary" >
+                            <b> <h2>WELCOME   TO   SMARTCOMPARE</h2></b>
+                            <b><p>Compare The Product From All The Sites At One Place Only</p></b>
                         </div>
                     </div>
                 </div>
-                <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-                    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span className="visually-hidden">Previous</span>
-                </button>
-                <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-                    <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span className="visually-hidden">Next</span>
-                </button>
             </div>
+
+
             <br />
             <span className="btn btn-light d-flex align-items-center justify-content-center">
                 <b><h6> Our Services</h6></b>
@@ -84,6 +89,54 @@ export default function Home() {
                     </div>
                 </div>
             </div>
+
+
+            <section class="home-testimonial">
+                <div class="container-fluid">
+                    <div class="row d-flex justify-content-center testimonial-pos">
+                        <div class="col-md-12 pt-4 d-flex justify-content-center text-light">
+                            <h2>Explore</h2>
+                        </div>
+                        <div class="col-md-12 d-flex justify-content-center text-light">
+                            <h3>The User Experience</h3>
+                        </div>
+                    </div>
+
+                    <section class="home-testimonial-bottom">
+                        <div class="container testimonial-inner">
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-md-4 style-3">
+                                    <div class="tour-item ">
+                                        <div class="tour-desc" style={{backgroundColor:"#f0f0ff"}}>
+                                            <div class="tour-text color-grey-3 text-center">&ldquo; {feedbacks[0].message} &rdquo;</div>
+                                            <br />
+                                            <div class="link-name d-flex justify-content-center">- {feedbacks[0].Name}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 style-3">
+                                    <div class="tour-item ">
+                                        <div class="tour-desc "style={{backgroundColor:"#f0f0ff"}}>
+                                            <div class="tour-text color-grey-3 text-center">&ldquo; {feedbacks[1].message} &rdquo;</div>
+                                            <br />
+                                            <div class="link-name d-flex justify-content-center">- {feedbacks[1].Name}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 style-3">
+                                    <div class="tour-item ">
+                                        <div class="tour-desc "style={{backgroundColor:"#f0f0ff"}}>
+                                            <div class="tour-text color-grey-3 text-center">&ldquo;{feedbacks[2].message}&rdquo;</div>
+                                            <br />
+                                            <div class="link-name d-flex justify-content-center">- {feedbacks[2].Name}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </section>
         </>
     )
 }

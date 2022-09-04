@@ -6,6 +6,7 @@ const app = express();
 const coll = require("./Schemas/DetailOfProd");
 const rgu = require("./Schemas/RegUser");
 const authentication = require("./middleware/Athenticate");
+const coll1 = require("./Schemas/feedback");
 const PORT = process.env.PORT || 8000;
 
 app.use(express.json());
@@ -26,7 +27,6 @@ app.post('/chklogin', async (req, res) => {
                 httpOnly: true
             });
 
-            console.log(token);
             return res.json({ message: "Successfully Login" });
         }
     }
@@ -86,7 +86,6 @@ app.post('/insertdatas', async (req, res) => {
 
 
 app.get("/chkadmin", authentication, (req, res) => {
-    console.log(req.rootUser.Admin)
     if (req.rootUser.Admin == true) {
         res.send(req.rootUser);
     } else {
@@ -103,7 +102,6 @@ app.post("/chkcontact", authentication, async (req, res) => {
         const { PName, Message } = req.body;
 
         if (!PName || !Message) {
-            console.log("ERRRoR");
             return res.json({ error: "PLZ FIll Correct INFO Empty Field" });
         }
         const userD = await rgu.findOne({ _id: req.rootUser._id });
@@ -135,7 +133,6 @@ app.post("/getSingleData", async (req, res) => {
 
     if (data.Prices.AmazonP != req.body.Prices.AmazonP || data.Prices.FlipkartP != req.body.Prices.FlipkartP) {
         const result = await data.getDetailFrom();
-        console.log("Updated");
     }
 
     res.status(200).send(data);
@@ -175,6 +172,24 @@ app.post("/searchProd", async (req, res) => {
 
 
 });
+
+app.post("/sendFeedback", async (req, res) => {
+
+    let demo = {
+        rate: req.body["rate"],
+        message: req.body["message"],
+        Name: req.body["Name"]
+    }
+    const data = new coll1(demo);
+    await data.save();
+})
+
+app.get("/getFedd", async (req, res) => {
+    const data = await coll1.find().limit(3);
+
+    res.send(data);
+});
+
 
 app.listen(PORT, () => {
     console.log(`running on port${PORT}`);

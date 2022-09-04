@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import '../cssElem/contact.css';
+import FeedBack from "./FeedBack";
 
 export default function ContactUs() {
 
@@ -56,11 +57,10 @@ export default function ContactUs() {
             setuserData({ ...userData, message: "" });
         }
     }
-
+    
     return (
         <>
             <div id="aldtr" >
-
                 <div className="cntr" >
                     <div className="content">
                         <div className="left-side">
@@ -95,7 +95,7 @@ export default function ContactUs() {
                     </div>
                 </div>
             </div>
-
+            <FeedBack />
         </>
     )
 }

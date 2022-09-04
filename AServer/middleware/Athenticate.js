@@ -20,7 +20,6 @@ const authenticate = async (req, res, next) => {
 
     } catch (err) {
         res.status(401).send("Unavailable Token");
-        console.log("ERROR IN Authentications middleware");
     }
 }
 

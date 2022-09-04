@@ -10,7 +10,7 @@ export default function Admin() {
     const [email, setemail] = useState("None");
 
     useEffect(() => {
-        return () => {
+        return()=>{
             getAdminPage();
         }
     }, []);
@@ -38,7 +38,7 @@ export default function Admin() {
             }
         } catch (err) {
             console.log(err);
-            alert("Your Not logged as Admin....");
+            alert("Your are Not Admin");
             navigate("/");
         }
     }
@@ -104,13 +104,13 @@ export default function Admin() {
                                 <input type="url" className="form__input" placeholder="Croma Link" id="Meesho" name='CLink' />
                                 <label for="Meesho" className="form__label">Croma</label>
                             </div>
-                            <select class="form-select" aria-label="Default select example" name='Option'>
+                            <select class="btn  form-select" aria-label="Default select example" name='Option' style={{border:"solid 2px black"}}>
                                 <option selected>Open this select menu</option>
                                 <option value="Fashion">Fashion</option>
                                 <option value="Electronics">Electronics</option>
                                 <option value="Mobile">Mobiles</option>
                             </select>
-                            <div className="btn btn-primary ">
+                            <div className="btn btn-primary mt-2">
                                 <input type="submit" value="Submit" style={{ textDecoration: "none" }} />
                             </div>
                         </form>

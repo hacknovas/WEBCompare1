@@ -13,12 +13,12 @@
 }
 
 .links:hover {
-    background-color: rgb(85, 85, 85);
+    background-color: rgb(184, 172, 238);
     color: white;
 }
 
 .links.selected {
-    background-color: rgb(42, 5, 45);
+    background-color:#8067c4;
     color: white;
     font-size: 20px;
     border-radius: 5px;

@@ -74,26 +74,6 @@ export default function ProductDetails() {
                 <div className="w3-container">
                   <p><h2>{obj.Product_Name}</h2></p>
                   <hr />
-
-                  <p className="w3-large"><b><i className="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>Specification</b></p>
-                  <p>Performance</p>
-                  <div className="w3-light-grey w3-round-xlarge w3-small">
-                    <div className="w3-container w3-center w3-round-xlarge w3-teal" style={{ width: "90%" }}>90%</div>
-                  </div>
-                  <p>Camera</p>
-                  <div className="w3-light-grey w3-round-xlarge w3-small">
-                    <div className="w3-container w3-center w3-round-xlarge w3-teal" style={{ width: "80%" }}>
-                      <div className="w3-center w3-text-white">80%</div>
-                    </div>
-                  </div>
-                  <p>Display</p>
-                  <div className="w3-light-grey w3-round-xlarge w3-small">
-                    <div className="w3-container w3-center w3-round-xlarge w3-teal" style={{ width: "50%" }}>50%</div>
-                  </div>
-                  <p>Battery</p>
-                  <div className="w3-light-grey w3-round-xlarge w3-small">
-                    <div className="w3-container w3-center w3-round-xlarge w3-teal" style={{ width: "70%" }}>50%</div>
-                  </div>
                   <br />
                   <br />
                 </div>

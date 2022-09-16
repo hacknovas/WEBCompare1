@@ -16,7 +16,6 @@ export default function Products() {
             }
         });
         const dt = await result.json();
-        console.log(dt);
         setTimeout(() => {
             document.querySelector(".dspl1").style.display = "block";
             document.querySelector(".dspl2").style.display = "none";
@@ -56,8 +55,6 @@ export default function Products() {
         }, 1000);
 
         const dt = await result.json();
-        console.log(dt);
-
 
         setdata(dt);
 
@@ -68,12 +65,12 @@ export default function Products() {
             <div>
                 <div className="row">
                     <div className="container col-2" >
-                        <div class="Menu">
-                            <div href="#" class="links selected btn-dark text-center">Category</div>
-                            <Link to="/product" style={{ textDecoration: "none" }}><div class="links btn " onClick={() => { window.location.reload(false) }}>ALL</div></Link>
-                            <div class="links btn" onClick={() => { getSeperateData("Mobile") }}>Mobiles</div>
-                            <div class="links btn" onClick={() => { getSeperateData("Electronics") }} >Electronics</div>
-                            <div class="links btn" onClick={() => { getSeperateData("Fashion") }}>Fashion</div>
+                        <div className="Menu">
+                            <div href="#" className="links selected btn-dark text-center">Category</div>
+                            <Link to="/product" style={{ textDecoration: "none" }}><div className="links btn " onClick={() => { window.location.reload(false) }}>ALL</div></Link>
+                            <div className="links btn" onClick={() => { getSeperateData("Mobile") }}>Mobiles</div>
+                            <div className="links btn" onClick={() => { getSeperateData("Electronics") }} >Electronics</div>
+                            <div className="links btn" onClick={() => { getSeperateData("Fashion") }}>Fashion</div>
                         </div>
                     </div>
 

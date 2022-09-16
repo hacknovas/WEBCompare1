@@ -6,7 +6,6 @@ import "../cssElem/spncss.css";
 export default function ProductDetails() {
   const location = useLocation();
   const data = location.state;
-  console.log(data, "Done");
 
   const [obj, setobj] = useState({
     Links: { "Amazon": "", "Flipkart": "", }, Prices: { "AmazonP": "", "FlipkartP": "" }, Ratings: { "AmazonP": "", "FlipkartP": "" }, Images: { "AmazonP": "" }, Product_Name: "",
@@ -35,7 +34,6 @@ export default function ProductDetails() {
       result = await res.json();
       setobj(result);
     } catch (err) {
-      console.log("Error Occured")
     }
 
     setTimeout(test, 2000);

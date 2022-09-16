@@ -31,7 +31,6 @@ export default function ContactUs() {
                 setuserData({ ...userData, name: results.Name, email: results.Email });
             }
         } catch (err) {
-            console.log(err);
         }
     }
 
@@ -57,7 +56,7 @@ export default function ContactUs() {
             setuserData({ ...userData, message: "" });
         }
     }
-    
+
     return (
         <>
             <div id="aldtr" >

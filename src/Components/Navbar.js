@@ -25,7 +25,6 @@ export default function Navbar() {
                 setName(results.Name);
             }
         } catch (err) {
-            console.log(err);
         }
     }
 
@@ -40,7 +39,6 @@ export default function Navbar() {
             alert("Successfuly Logout");
             navigate('/');
         }).catch((err) => {
-            console.log("error Occured");
         })
     }
 
@@ -65,7 +63,6 @@ export default function Navbar() {
             document.querySelector(".dspl3").children[1].children[0].children[0].setAttribute("src", fr);
             document.querySelector(".dspl3").children[1].children[0].children[1].children[0].innerHTML = result[0].Product_Name;
             document.querySelector(".dspl3").children[1].children[0].children[1].children[1].children[0].setAttribute("state", obj);
-            console.log(document.querySelector(".dspl3").children[1].children[0].children[1].children[1].children[0]);
 
             navigate('/product');
         } else {
@@ -76,7 +73,7 @@ export default function Navbar() {
 
     return (
         <>
-            <nav class="navbar sticky-top row shadow rounded" style={{ backgroundColor: "#f0f0ff" }}>
+            <nav className="navbar sticky-top row shadow rounded" style={{ backgroundColor: "#f0f0ff" }}>
                 <div className='col-1'>
                     <b><Link to="/home" style={{ textDecorationLine: "none" }} className="btn-sm text-secondary"> &nbsp;&nbsp;&nbsp;WebCompare</Link></b>
                 </div>
@@ -95,21 +92,21 @@ export default function Navbar() {
                 </div>
 
                 <div className="col-4">
-                    <form className="d-flex" role="search" onSubmit={searchProd}>
+                    <form className="d-flex" onSubmit={searchProd}>
                         <input className="form-control me-2" type="search" placeholder="Search Product" aria-label="Search" name='Name' />
-                        <div className="btn btn-outline-secondary" type="submit">Go</div>
+                        <h5><input className="btn btn-outline-secondary" type="submit" value="Go" /></h5>
                     </form>
                 </div>
 
                 <div className="col-2" onClick={getData}>
                     <ul style={{ listStyle: "none" }}>
-                        <li class="dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="../../images/1234.png" width="40" height="40" class="rounded-circle" />
+                        <li className="dropdown">
+                            <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="../../images/1234.png" width="40" height="40" className="rounded-circle" />
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <div class="dropdown-item text-center" >{Name}</div>
-                                <div class="dropdown-item" >
+                            <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <div className="dropdown-item text-center" >{Name}</div>
+                                <div className="dropdown-item" >
                                     <Link to='/' style={{ textDecorationLine: "none" }} className="text-dark">Login</Link>
                                 </div>
                                 <div className="dropdown-item">
